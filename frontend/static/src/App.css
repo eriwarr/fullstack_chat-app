@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/Desktop.png");
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,57 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.chat-box {
+  background-color: white;
+  max-height: 400px;
+  height: 400px;
+  width: 500px;
+  color: #61dafb;
+  border-top: 3px solid #C0FEFC;
+  border-right: 3px solid #C0FEFC;
+  border-left: 3px solid #C0FEFC;
+  text-align: left;
+  font-size: 10px;
+  overflow-y: auto;
+}
+
+.message-box {
+  background-color: #F1F1F1;
+  border-right: solid #C0FEFC;
+  border-left: solid #C0FEFC;
+  border-bottom: solid #C0FEFC;
+  height: auto;
+  width: 500px;
+  text-align: center;
+}
+
+.form-input {
+  background-color: #F1F1F1;
+  width: 400px;
+  height: 50px;
+  border: 1px solid #393E46;
+  /* border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #393E46; */
+}
+
+button{
+  width: 90px;
+  background-color: #C0FEFC;
+  border: 1px;
+
+}
+
+.list {
+  list-style: none;
+  background-color: #04009A;
+  width: 50%;
+  border-radius: 4%;
+  color: white;
+}
+
+h1 {
+  color: #F7FD04; 
 }
