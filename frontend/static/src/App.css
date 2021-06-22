@@ -59,6 +59,7 @@
   height: auto;
   width: 500px;
   text-align: center;
+  position: relative;
 }
 
 .form-input {
@@ -71,10 +72,12 @@
   border-bottom: 1px solid #393E46; */
 }
 
-button{
-  width: 90px;
+.send-button{
+  width: 50px;
+  height: 40px;
   background-color: #C0FEFC;
   border: 1px;
+  position: absolute;
 
 }
 
@@ -87,5 +90,5 @@ button{
 }
 
 h1 {
-  color: #F7FD04; 
+  color: #F7FD04;
 }

@@ -26,14 +26,24 @@ class Login extends Component {
 
   render() {
     return(
-      <form onSubmit={this.handleSubmit}>
-        <input type="text" name="username" placeholder="username" onChange={this.handleInput}/>
-        <input type="email" name="email" placeholder="email" onChange={this.handleInput}/>
-        <input type="password" name="password" placeholder="password" onChange={this.handleInput}/>
-        <button type="button" onClick={() => this.props.handleNavigation('register')}>Need an account? Register!</button>
-        <button type="submit">LOGIN</button>
-      </form>
 
+      <form onSubmit={this.handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">Username</label>
+          <input type="text" className="form-control" id="username" name="username" onChange={this.handleInput} />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email address</label>
+          <input type="email" className="form-control" id="email" aria-describedby="emailHelp" name="email" onChange={this.handleInput} />
+          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password</label>
+          <input type="password" className="form-control" id="password" name="password" onChange={this.handleInput} />
+        </div>
+        <button type="button" className="btn btn-link" onClick={() => this.props.handleNavigation('register')}>Need an account? Register!</button>
+        <button type="submit" className="btn btn-primary">Login</button>
+      </form>
     )
   }
 }
