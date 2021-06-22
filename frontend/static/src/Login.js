@@ -10,7 +10,6 @@ class Login extends Component {
       email: '',
       password: '',
     }
-
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,8 +18,8 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.handleLogin(this.state);
   }
 

@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import MessageForm from './Chats';
+import MessageForm from './MessageForm';
 
 class ChatList extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class ChatList extends Component {
   render() {
     const messageDisplay = this.state.messages.map((message) => (
       <li className='list'key={message.id}>
+        <p>{message.user}</p>
         <p>{message.message}</p>
         <p>{message.time}</p>
       </li>

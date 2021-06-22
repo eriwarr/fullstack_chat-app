@@ -91,16 +91,16 @@ class App extends Component {
   }
 
   render() {
-    Cookies.remove('Authorization');
+
     return (
       <>
        <div className="App">
          <div className="App-header">
-
+           {this.state.selection === 'chats' && <button type="submit" className="btn btn-primary" onClick={this.handleLogout}>LOGOUT</button>}
             <h1>My Awesome Chat App</h1>
             {this.state.selection === 'login' && <Login handleLogin={this.handleLogin} handleNavigation={this.handleNavigation}/>}
             {this.state.selection === 'register' && <Registration handleRegistration={this.handleRegistration} handleNavigation={this.handleNavigation}/>}
-            {this.state.selection === 'chats' && <ChatList />}
+            {this.state.selection === 'chats' && <ChatList/>}
         </div>
       </div>
       </>
