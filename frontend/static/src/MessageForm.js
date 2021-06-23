@@ -18,9 +18,7 @@ class MessageForm extends Component {
   }
 
   sendMessage(event) {
-    // event.preventDefault();
-    // this.setState({ messages: '' })
-
+    event.preventDefault();
     const currentMessage = {
         message: this.state.messages,
     }
@@ -35,12 +33,13 @@ class MessageForm extends Component {
     }
     fetch('/api/v1/chat/', options)
       .then(response => response.json());
+
 }
   render() {
 
     return (
       <form onSubmit= {this.sendMessage}>
-        <textarea className="form-input" name="messages" value={this.state.messages} placeholder="Start your messge" onChange={this.handleInput}></textarea>
+        <textarea className="form-input" name="messages" value={this.state.messages} placeholder="Start your message" onChange={this.handleInput}></textarea>
         <button className="send-button" type="submit">Send</button>
       </form>
     )

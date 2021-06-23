@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import Cookies from 'js-cookie';
 import './App.css';
 
 class Registration extends Component {
