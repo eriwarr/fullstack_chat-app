@@ -27,7 +27,7 @@ class ChatList extends Component {
 
     const messageDisplay = this.state.messages.map((message) => (
       <li className='list'key={message.id}>
-        <p>{message.owner}</p>
+        <h6>{message.owner.toUpperCase()}</h6>
         {this.state.user === message.owner ? <ChatDetail id={message.id} message={message.message} messages={this.state.messages}/> : <p>{message.message}</p>}
         <p>{message.time}</p>
     </li>
