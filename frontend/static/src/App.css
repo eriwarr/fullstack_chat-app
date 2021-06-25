@@ -49,9 +49,27 @@
   text-align: left;
   font-size: 10px;
   overflow-y: auto;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
 }
 
-.message-box {
+
+
+.rooms-box {
+  background-color: #2D373E;
+  max-height: 400px;
+  height: 400px;
+  width: 200px;
+  color: #61dafb;
+  border-top: 3px solid #C0FEFC;
+  border-right: 1px solid #C0FEFC;
+  border-left: 3px solid #C0FEFC;
+  font-size: 10px;
+  overflow-y: auto;
+}
+
+
+.message-form {
   background-color: #F1F1F1;
   border-right: solid #C0FEFC;
   border-left: solid #C0FEFC;
@@ -67,9 +85,6 @@
   width: 400px;
   height: 50px;
   border: 1px solid #393E46;
-  /* border-right: none;
-  border-left: none;
-  border-bottom: 1px solid #393E46; */
 }
 
 .send-button{
@@ -78,17 +93,21 @@
   background-color: #C0FEFC;
   border: 1px;
   position: absolute;
-
 }
 
 .list {
   list-style: none;
-  background-color: #04009A;
+  background-color: #2C353D;
   border-radius: 4%;
   color: white;
-  margin: 15px 0; 
+  margin: 15px 0;
+  opacity: 80%;
 }
 
 h1 {
   color: #F7FD04;
+}
+
+.detail-button {
+  background-color: yellow;
 }

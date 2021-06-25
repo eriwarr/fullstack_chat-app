@@ -34,6 +34,7 @@ class MessageForm extends Component {
     fetch('/api/v1/chat/', options)
       .then(response => response.json());
 
+    this.setState({ messages: ''});
 }
   render() {
 

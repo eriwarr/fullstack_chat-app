@@ -5,12 +5,11 @@ class ChatDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditing: null,
-      edit: '',
+      isEditing: false,
+      message: this.props.message.message,
     };
     this.handleEdit = this.handleEdit.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
 
   }
 
@@ -18,62 +17,39 @@ class ChatDetail extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleDelete(id) {
-    const options = {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': Cookies.get('csrftoken'),
-      },
-    }
+  handleEdit() {
+    this.setState({isEditing: false});
+    const message = this.props.message;
+    message.message = this.state.message;
+    this.props.handleUpdate(message);
 
-    fetch(`/api/v1/chat/${id}/`, options)
-    .then(response => {
-      const messages = [ ...this.props.messages];
-      const index = messages.findIndex(message => message.id === id);
-      messages.splice(index, 1);
-      this.setState({ messages });
-    })
-
-  }
-
-  handleEdit(id, message) {
-    this.setState({isEditing: null});
-    
-    const currentMessage = {
-      message: this.state.edit,
-    }
-      console.log(id)
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': Cookies.get('csrftoken'),
-      },
-      body: JSON.stringify(currentMessage),
-    }
-    fetch(`/api/v1/chat/${id}/`, options)
-      .then(response => {
-        const messages = [ ...this.props.messages];
-        const index = messages.findIndex(message => message.id === id);
-        messages[index].message = message;
-        this.setState({ messages })
-      })
   }
 
   render() {
-
+    const message = this.props.message;
     return(
-      <>
-      {this.state.isEditing === this.props.id ? <input type="text" name="edit" onChange={this.handleInput}/> : <p>{this.props.message}</p>}
-      {this.state.isEditing === this.props.id ? <button type="button" onClick={() => this.handleEdit(this.props.id, this.props.message)}>SAVE</button> : <button type="button" onClick={() => this.setState({ isEditing: this.props.id})}>EDIT</button>}
-      <button type="button" onClick={() => this.handleDelete(this.props.id, this.props.message)}>DELETE</button>
-      </>
+      <li className='list'>
+        <h6>{message.owner.toUpperCase()}</h6>
+
+        {
+          this.state.isEditing
+          ? <textarea type="text" name="message" value={this.state.message} onChange={this.handleInput}></textarea>
+          :  <p>{message.message}</p>
+        }
+
+        <time>{this.props.time}</time>
+
+        {
+          this.state.isEditing
+          ? <button className ="detail-button" type="button" onClick={this.handleEdit}>SAVE</button>
+          : message.has_owner_permissions && <button className ="detail-button" type="button" onClick={() => this.setState({ isEditing: true})}>EDIT</button>
+        }
+
+        {message.has_owner_permissions && <button className ="detail-button" type="button" onClick={() => this.props.handleDelete(message.id)}>DELETE</button>}
+
+      </li>
     )
   }
 }
 
 export default ChatDetail;
-
-
-// <button type="button" onClick={() => this.handleEdit(message.message, message.id)}>EDIT</button><button type="button" onClick={() => this.handleDelete(message.id)}>DELETE</button>

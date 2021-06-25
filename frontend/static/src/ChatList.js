@@ -1,6 +1,7 @@
-import {Component} from 'react';
+import { Component } from 'react';
 import MessageForm from './MessageForm';
 import ChatDetail from './ChatDetail';
+import Cookies from 'js-cookie';
 
 class ChatList extends Component {
   constructor(props) {
@@ -9,44 +10,96 @@ class ChatList extends Component {
       messages: [],
       user: '',
     }
-}
-  componentDidMount() {
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.fetchData = this.fetchData.bind(this);
+  }
 
+  componentDidMount() {
+    this.retreieveMessages = setInterval(this.fetchData, 1000);
+  }
+
+  componnentWillUnmount() {
+    clearInterval(this.retreieveMessages);
+  }
+
+  fetchData() {
     fetch('api/v1/chat/')
     .then(response => response.json())
     .then(data => this.setState({ messages: data }));
-    fetch('rest-auth/user/')
-    .then(response => response.json())
-    .then(data => this.setState({ user: data.username}));
   }
 
-  //   <ChatDetail messageId={this.props.message.id} message={message.message}/>
-  //   <p>{message.time}</p>
+
+  handleDelete(id) {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': Cookies.get('csrftoken'),
+      },
+    }
+
+    fetch(`/api/v1/chat/${id}/`, options)
+    .then(response => {
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const messages = [ ...this.state.messages];
+      const index = messages.findIndex(message => message.id === id);
+      messages.splice(index, 1);
+      this.setState({ messages });
+    });
+
+  }
+
+  handleUpdate(message) {
+
+    const id = message.id;
+
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': Cookies.get('csrftoken'),
+      },
+      body: JSON.stringify(message),
+    }
+    fetch(`/api/v1/chat/${id}/`, options)
+      .then(response => {
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const messages = [ ...this.state.messages];
+        const index = messages.findIndex(message => message.id === id);
+        messages[index] = message;
+        this.setState({ messages });
+      });
+  }
 
   render() {
 
     const messageDisplay = this.state.messages.map((message) => (
-      <li className='list'key={message.id}>
-        <h6>{message.owner.toUpperCase()}</h6>
-        {this.state.user === message.owner ? <ChatDetail id={message.id} message={message.message} messages={this.state.messages}/> : <p>{message.message}</p>}
-        <p>{message.time}</p>
-    </li>
+      <ChatDetail key={message.id} message={message} handleDelete={this.handleDelete} handleUpdate={this.handleUpdate}/>
     ))
 
     return(
       <>
       <div className="chat-box">
-        {messageDisplay}
+        <div className="message-display">
+          {messageDisplay}
+        </div>
       </div>
-      <div className="message-box">
+      <div>
         <MessageForm/>
       </div>
+
     </>
     )
   }
 }
 
 export default ChatList;
-
-
-// <button type="button" onClick={() => this.handleEdit(message.message, message.id)}>EDIT</button><button type="button" onClick={() => this.handleDelete(message.id)}>DELETE</button>

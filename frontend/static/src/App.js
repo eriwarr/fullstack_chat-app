@@ -7,6 +7,8 @@ import Login from './Login';
 
 import ChatList from './ChatList';
 
+import Rooms from './Rooms';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -36,7 +38,6 @@ class App extends Component {
       Cookies.remove('Authorization');
       this.setState({selection: 'login'});
     }
-
 
   }
 
@@ -103,6 +104,7 @@ class App extends Component {
             <h1>My Awesome Chat App</h1>
             {this.state.selection === 'login' && <Login handleLogin={this.handleLogin} handleNavigation={this.handleNavigation}/>}
             {this.state.selection === 'register' && <Registration handleRegistration={this.handleRegistration} handleNavigation={this.handleNavigation}/>}
+            <div></div>
             {this.state.selection === 'chats' && <ChatList user={this.state.user}/>}
         </div>
       </div>

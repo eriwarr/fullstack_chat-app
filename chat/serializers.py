@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ChatMessage
+from .models import ChatMessage, Room
 
 class ChatMessageSerializer(serializers.ModelSerializer):
     has_owner_permissions = serializers.SerializerMethodField('get_owner_status')
@@ -12,3 +12,8 @@ class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMessage
         fields = "__all__"
+
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = '__all__'
