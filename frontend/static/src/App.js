@@ -11,7 +11,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selection: !!Cookies.get('Authorization') ? 'chats' : 'login'
+      selection: !!Cookies.get('Authorization') ? 'chats' : 'login',
+      user: '',
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -40,7 +41,7 @@ class App extends Component {
   }
 
   async handleLogin(user) {
-
+    this.setState({ user: user.username });
     const options = {
       method: 'POST',
       headers: {
@@ -54,12 +55,14 @@ class App extends Component {
     const response = await fetch('/rest-auth/login/', options).catch(handleError);
 
     if(response.ok) {
+      console.log(response)
       const data = await response.json().catch(handleError);
       Cookies.set('Authorization', `Token ${data.key}`);
       this.setState({selection: 'chats'});
     } else {
       // throw an Error
     }
+
   }
 
   async handleRegistration(user) {
@@ -100,7 +103,7 @@ class App extends Component {
             <h1>My Awesome Chat App</h1>
             {this.state.selection === 'login' && <Login handleLogin={this.handleLogin} handleNavigation={this.handleNavigation}/>}
             {this.state.selection === 'register' && <Registration handleRegistration={this.handleRegistration} handleNavigation={this.handleNavigation}/>}
-            {this.state.selection === 'chats' && <ChatList/>}
+            {this.state.selection === 'chats' && <ChatList user={this.state.user}/>}
         </div>
       </div>
       </>

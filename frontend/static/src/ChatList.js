@@ -1,83 +1,36 @@
 import {Component} from 'react';
 import MessageForm from './MessageForm';
-import Cookies from 'js-cookie';
+import ChatDetail from './ChatDetail';
 
 class ChatList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
-      isEditing: null,
-      edit: '',
-    };
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-
-  handleInput(event){
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  handleDelete(id) {
-    const options = {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': Cookies.get('csrftoken'),
-      },
+      user: '',
     }
-
-    fetch(`/api/v1/chat/${id}/`, options)
-    .then(response => {
-      const messages = [ ...this.state.messages];
-      const index = messages.findIndex(message => message.id === id);
-      messages.splice(index, 1);
-      this.setState({ messages });
-    })
-
-  }
-
-  handleEdit(id, message) {
-    this.setState({isEditing: null});
-
-
-    const currentMessage = {
-      message: this.state.edit,
-    }
-      console.log(id)
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': Cookies.get('csrftoken'),
-      },
-      body: JSON.stringify(currentMessage),
-    }
-    fetch(`/api/v1/chat/${id}/`, options)
-      .then(response => {
-        const messages = [ ...this.state.messages];
-        const index = messages.findIndex(message => message.id === id);
-        messages[index].message = message;
-        this.setState({ messages })
-      })
-  }
-
+}
   componentDidMount() {
+
     fetch('api/v1/chat/')
     .then(response => response.json())
     .then(data => this.setState({ messages: data }));
+    fetch('rest-auth/user/')
+    .then(response => response.json())
+    .then(data => this.setState({ user: data.username}));
   }
 
+  //   <ChatDetail messageId={this.props.message.id} message={message.message}/>
+  //   <p>{message.time}</p>
+
   render() {
+
     const messageDisplay = this.state.messages.map((message) => (
       <li className='list'key={message.id}>
-        <p>{message.username}</p>
-        {this.state.isEditing === message.id ? <input type="text" name="edit" onChange={this.handleInput}/> : <p>{message.message}</p>}
+        <p>{message.owner}</p>
+        {this.state.user === message.owner ? <ChatDetail id={message.id} message={message.message} messages={this.state.messages}/> : <p>{message.message}</p>}
         <p>{message.time}</p>
-        {this.state.isEditing === message.id ? <button type="button" onClick={() => this.handleEdit(message.id)}>SAVE</button> : <button type="button" onClick={() => this.setState({ isEditing: message.id})}>EDIT</button>}
-        <button type="button" onClick={() => this.handleDelete(message.id, message.message)}>DELETE</button>
-      </li>
+    </li>
     ))
 
     return(

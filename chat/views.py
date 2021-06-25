@@ -6,12 +6,12 @@ from .permissions import IsAuthOrReadOnly
 class ChatMessageListAPIView(generics.ListCreateAPIView):
     queryset = ChatMessage.objects.all()
     serializer_class = ChatMessageSerializer
-    permission_classes = (IsAuthOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    
+
 class ChatMessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ChatMessage.objects.all()
     serializer_class = ChatMessageSerializer
+    permission_classes = (IsAuthOrReadOnly,)
