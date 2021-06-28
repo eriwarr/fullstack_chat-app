@@ -39,8 +39,8 @@
 
 .chat-box {
   background-color: white;
-  max-height: 400px;
-  height: 400px;
+  max-height: 600px;
+
   width: 500px;
   color: #61dafb;
   border-top: 3px solid #C0FEFC;
@@ -48,12 +48,15 @@
   border-left: 3px solid #C0FEFC;
   text-align: left;
   font-size: 10px;
-  overflow-y: auto;
   border-top-left-radius: 5%;
   border-top-right-radius: 5%;
+  padding: 10px;
 }
 
-
+.message-display {
+  height: 400px;
+  overflow-y: auto;
+}
 
 .rooms-box {
   background-color: #2D373E;
@@ -75,9 +78,9 @@
   border-left: solid #C0FEFC;
   border-bottom: solid #C0FEFC;
   height: auto;
-  width: 500px;
+  width: 450px;
   text-align: center;
-  position: relative;
+
 }
 
 .form-input {
@@ -88,11 +91,12 @@
 }
 
 .send-button{
-  width: 50px;
+  width: 37px;
   height: 40px;
   background-color: #C0FEFC;
   border: 1px;
   position: absolute;
+  ; 
 }
 
 .list {
@@ -101,7 +105,11 @@
   border-radius: 4%;
   color: white;
   margin: 15px 0;
-  opacity: 80%;
+  opacity: 50%;
+}
+
+p {
+  font-size: 15px;
 }
 
 h1 {

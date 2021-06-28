@@ -2,6 +2,7 @@ import { Component } from 'react';
 import MessageForm from './MessageForm';
 import ChatDetail from './ChatDetail';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class ChatList extends Component {
   constructor(props) {
@@ -92,11 +93,9 @@ class ChatList extends Component {
         <div className="message-display">
           {messageDisplay}
         </div>
-      </div>
-      <div>
         <MessageForm/>
+        
       </div>
-
     </>
     )
   }
