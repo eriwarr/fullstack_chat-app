@@ -94,7 +94,7 @@ class ChatList extends Component {
           {messageDisplay}
         </div>
         <MessageForm/>
-        
+
       </div>
     </>
     )
