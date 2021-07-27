@@ -89,12 +89,20 @@ class ChatList extends Component {
 
     return(
       <>
-      <div className="chat-box">
-        <div className="message-display">
-          {messageDisplay}
+      <div className="container content">
+        <div className="row">
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div className="card">
+              <div className="card-header">Chat</div>
+                <div className="card-body height3">
+                  <ul className="chat-list">
+                    {messageDisplay}
+                  </ul>
+                </div>
+            </div>
+          </div>
         </div>
         <MessageForm/>
-
       </div>
     </>
     )

@@ -26,27 +26,23 @@ class ChatDetail extends Component {
   }
 
   render() {
+    const username = localStorage.getItem('user');
     const message = this.props.message;
+
+
     return(
-      <li className='list'>
-        <h6>{message.owner.toUpperCase()}</h6>
 
-        {
-          this.state.isEditing
-          ? <textarea type="text" name="message" value={this.state.message} onChange={this.handleInput}></textarea>
-          :  <p>{message.message}</p>
-        }
 
-        <time>{this.props.time}</time>
-
-        {
-          this.state.isEditing
-          ? <button className ="detail-button" type="button" onClick={this.handleEdit}>SAVE</button>
-          : message.has_owner_permissions && <button className ="detail-button" type="button" onClick={() => this.setState({ isEditing: true})}>EDIT</button>
-        }
-
-        {message.has_owner_permissions && <button className ="detail-button" type="button" onClick={() => this.props.handleDelete(message.id)}>DELETE</button>}
-
+      <li className= {username === message.owner ? "out" : "in"}>
+        <div className="chat-img">
+          testing
+        </div>
+        <div className="chat-body">
+					<div className="chat-message">
+						<h5>{message.owner.toUpperCase()}</h5>
+						<p>{message.message}</p>
+					</div>
+				</div>
       </li>
     )
   }

@@ -60,6 +60,7 @@ class App extends Component {
       const data = await response.json().catch(handleError);
       Cookies.set('Authorization', `Token ${data.key}`);
       this.setState({selection: 'chats'});
+      localStorage.setItem('user',this.state.user)
     } else {
       // throw an Error
     }
